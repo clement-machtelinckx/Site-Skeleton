@@ -23,7 +23,6 @@ type Props = {
 
     className?: string;
 
-    // MDI paths (optionnel si tu veux custom)
     phoneIconPath?: string;
     emailIconPath?: string;
 };

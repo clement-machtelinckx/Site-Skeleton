@@ -10,9 +10,9 @@ export default function Protection() {
             <section>
                 <Container>
                     <ProtectionPill />
-                    <Button asChild size="lg">
+                    {/* <Button asChild size="lg">
                         <Link href="/contact">Prendre RDV</Link>
-                    </Button>
+                    </Button> */}
                 </Container>
             </section>
 

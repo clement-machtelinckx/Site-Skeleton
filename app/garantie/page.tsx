@@ -73,10 +73,10 @@ export default function GarantiePage() {
             <section className="py-16 md:py-24">
                 <Container>
                     <div className="space-y-3">
-                        <h2 className="text-3xl text-primary font-semibold tracking-tight md:text-5xl">
+                        <h2 className="text-3xl text-primary text-center font-semibold tracking-tight md:text-5xl">
                             Nos garanties
                         </h2>
-                        <p className="max-w-4xl leading-relaxed text-muted-foreground font-semibold">
+                        <p className="mx-auto max-w-4xl text-center leading-relaxed text-muted-foreground font-semibold">
                             En proposant nos solutions, les audioprothésistes offrent à leurs
                             patients une tranquillité d’esprit. Des couvertures indispensables,
                             efficaces et totalement adaptées à la protection des appareillages.

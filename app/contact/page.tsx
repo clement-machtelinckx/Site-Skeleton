@@ -19,7 +19,7 @@ export default function Contact() {
                         <div>
                             <ContactCard
                                 title={"CONTACTER NOTRE CABINET"}
-                                href="/contact/form"
+                                href="/appeler-agence"
                                 buttonLabel="Appeler"
                                 iconPath={mdiPhone}
                                 className="whitespace-pre-line"

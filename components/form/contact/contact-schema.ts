@@ -1,80 +1,67 @@
 import { z } from "zod";
 
-export const CONTACT_REASONS = [
-    "changement_rib",
-    "mise_a_jour_contrat",
-    "sinistre",
-    "justificatif",
-    "informations",
-    "reclamation",
-    "autres",
+export const USER_TYPES = ["particulier", "professionnel"] as const;
+export type UserType = (typeof USER_TYPES)[number];
+
+export const INSURANCE_TYPES = [
+    "garantie_audioprothese",
+    "rc_pro",
+    "multirisque_pro",
+    "protection_juridique",
+    "sante_prevoyance",
+    "epargne_retraite",
 ] as const;
 
-export const CONTACT_CHANNELS = ["callback", "email"] as const;
+export type InsuranceType = (typeof INSURANCE_TYPES)[number];
 
-export const CALLBACK_SLOTS = ["9-11", "14-16", "16-18"] as const;
+export const insuranceLabel: Record<InsuranceType, string> = {
+    garantie_audioprothese: "Garantie Audioprothèse",
+    rc_pro: "Responsabilité Civile Professionnelle",
+    multirisque_pro: "Multirisque professionnelle",
+    protection_juridique: "Protection juridique",
+    sante_prevoyance: "Santé & prévoyance",
+    epargne_retraite: "Épargne & retraite",
+};
 
-export type ContactReason = (typeof CONTACT_REASONS)[number];
-export type ContactChannel = (typeof CONTACT_CHANNELS)[number];
-export type CallbackSlot = (typeof CALLBACK_SLOTS)[number];
-
-const phoneRegex = /^(\+?\d{1,3}[\s.-]?)?(\(?\d{1,4}\)?[\s.-]?)?[\d\s.-]{6,}$/;
+const phoneRegex = /^(\+?\d{1,3}[\s.-]?)?[\d\s().-]{6,}$/;
 const postalCodeFR = /^\d{5}$/;
 
-export const contactFormSchema = z
-    .object({
-        channel: z.enum(CONTACT_CHANNELS),
-        reason: z.enum(CONTACT_REASONS),
+export const contactFormSchema = z.object({
+    userType: z.enum(USER_TYPES),
 
-        firstName: z.string().min(2, "Prénom requis"),
-        lastName: z.string().min(2, "Nom requis"),
-        email: z.string().email("Email invalide"),
-        phone: z.string().min(6, "Téléphone requis").regex(phoneRegex, "Téléphone invalide"),
+    // Identité
+    jobFunction: z.string().min(1, "Fonction requise"),
+    firstName: z.string().min(2, "Prénom requis"),
+    lastName: z.string().min(2, "Nom requis"),
+    email: z.string().email("Email invalide"),
+    phone: z.string().min(6, "Téléphone requis").regex(phoneRegex, "Téléphone invalide"),
 
-        postalCode: z.string().regex(postalCodeFR, "Code postal invalide (5 chiffres)"),
-        city: z.string().min(2, "Ville requise"),
+    // Entreprise (optionnelle si particulier)
+    companyName: z.string().optional(),
+    companyAddress: z.string().optional(),
+    postalCode: z.string().regex(postalCodeFR, "Code postal invalide (5 chiffres)"),
+    city: z.string().min(2, "Ville requise"),
 
-        companyName: z.string().optional(),
-        storeType: z.string().min(1, "Type d'enseigne requis"),
-        contractNumber: z.string().optional(),
-
-        callbackSlots: z.array(z.enum(CALLBACK_SLOTS)).optional(),
-
-        isPartner: z.boolean().optional(),
-        message: z.string().max(2000).optional(),
-    })
-    .superRefine((data, ctx) => {
-        // Créneaux obligatoires si callback
-        if (data.channel === "callback") {
-            if (!data.callbackSlots || data.callbackSlots.length === 0) {
-                ctx.addIssue({
-                    code: z.ZodIssueCode.custom,
-                    message: "Sélectionne au moins un créneau de rappel",
-                    path: ["callbackSlots"],
-                });
-            }
+    // Besoin
+    insuranceType: z.enum(INSURANCE_TYPES),
+    message: z.string().min(10, "Décrivez votre demande (10 caractères min)").max(2000),
+}).superRefine((data, ctx) => {
+    if (data.userType === "professionnel") {
+        if (!data.companyName || data.companyName.trim().length < 2) {
+            ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                path: ["companyName"],
+                message: "Raison sociale requise",
+            });
         }
-
-        // Partenaire seulement utile si réclamation (on le laisse optional sinon)
-        if (data.reason !== "reclamation" && data.isPartner !== undefined) {
-            // pas une erreur, mais tu peux décider de nettoyer au submit
+        if (!data.companyAddress || data.companyAddress.trim().length < 5) {
+            ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                path: ["companyAddress"],
+                message: "Adresse de l’entreprise requise",
+            });
         }
-    });
+    }
+});
 
 export type ContactFormValues = z.infer<typeof contactFormSchema>;
-
-export const reasonLabel: Record<ContactReason, string> = {
-    changement_rib: "Changement de RIB",
-    mise_a_jour_contrat: "Mise à jour du contrat",
-    sinistre: "Sinistre",
-    justificatif: "Fournir un justificatif",
-    informations: "Informations",
-    reclamation: "Réclamation",
-    autres: "Autres",
-};
-
-export const slotLabel: Record<CallbackSlot, string> = {
-    "9-11": "De 9h à 11h",
-    "14-16": "De 14h à 16h",
-    "16-18": "De 16h à 18h",
-};
