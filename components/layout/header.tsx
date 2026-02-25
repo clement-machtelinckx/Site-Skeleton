@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Container } from "./container";
+import { MenuBurger } from "./menuBurger";
 
 export function Header() {
     return (
@@ -24,9 +25,13 @@ export function Header() {
                     </nav>
 
                     <div className="flex items-center gap-2">
-                        <Button asChild>
+                        {/* Desktop CTA */}
+                        {/* <Button asChild className="hidden md:inline-flex">
                             <Link href="/contact">Demander un devis</Link>
-                        </Button>
+                        </Button> */}
+
+                        {/* Mobile burger */}
+                        <MenuBurger />
                     </div>
                 </div>
             </Container>

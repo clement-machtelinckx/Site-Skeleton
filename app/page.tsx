@@ -179,7 +179,7 @@ export default function HomePage() {
             >
               <CarouselContent className="-ml-4">
                 {Array.from({ length: 10 }).map((_, index) => (
-                  <CarouselItem className="pl-4 basis-[85%] sm:basis-[33.333%] lg:basis-[20%]">
+                  <CarouselItem key={index} className="pl-4 basis-[85%] sm:basis-[33.333%] lg:basis-[20%]">
                     <div className="relative aspect-square w-full overflow-hidden rounded-2xl border bg-muted">
                       <Image
                         src="/bebe-pigeon.jpg"

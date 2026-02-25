@@ -19,7 +19,7 @@ export default function Contact() {
                         <div>
                             <ContactCard
                                 title={"CONTACTER NOTRE CABINET"}
-                                href="/contact"
+                                href="/appeler-agence"
                                 buttonLabel="Appeler"
                                 iconPath={mdiPhone}
                                 className="whitespace-pre-line"
@@ -28,7 +28,7 @@ export default function Contact() {
                         <div>
                             <ContactCard
                                 title="ETRE RAPPELÉ"
-                                href="/contact"
+                                href="/contact/form"
                                 buttonLabel="Être rappelé"
                                 iconPath={mdiHeadset}
                             />
@@ -36,7 +36,7 @@ export default function Contact() {
                         <div>
                             <ContactCard
                                 title="ENVOYER UN E-MAIL"
-                                href="/contact"
+                                href="/contact/form"
                                 buttonLabel="Envoyer un e-mail"
                                 iconPath={mdiEmail}
                             />
