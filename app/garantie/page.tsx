@@ -53,7 +53,7 @@ export default function GarantiePage() {
 
                             <div className="pt-2">
                                 <Button asChild size="lg">
-                                    <Link href="/contact">Prendre RDV</Link>
+                                    <Link href="https://eurossur-audio.fr/contact/">Prendre RDV</Link>
                                 </Button>
                             </div>
                         </div>
@@ -139,35 +139,6 @@ export default function GarantiePage() {
                                 className="object-cover"
                                 sizes="(min-width: 768px) 50vw, 100vw"
                             />
-                        </div>
-                    </div>
-                </Container>
-            </section>
-
-            {/* CHIFFRES CLÉS */}
-            <section className="py-16 md:py-24">
-                <Container>
-                    <h2 className="text-center text-2xl font-semibold tracking-tight md:text-3xl">
-                        Nos chiffres clés audioprothèses
-                    </h2>
-
-                    <div className="mt-10 grid gap-6 text-center md:grid-cols-3">
-                        <div className="p-8">
-                            <p className="text-lg font-semibold md:text-xl">
-                                + 600 000 Appareils Assurés
-                            </p>
-                        </div>
-
-                        <div className="p-8">
-                            <p className="text-lg font-semibold md:text-xl">
-                                + 9 000 sinistres pris en charge / an
-                            </p>
-                        </div>
-
-                        <div className="p-8">
-                            <p className="text-lg font-semibold md:text-xl">
-                                + 3 000 centres auditifs partenaires
-                            </p>
                         </div>
                     </div>
                 </Container>
