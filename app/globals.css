@@ -38,6 +38,8 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  --font-heading: var(--font-quicksand), sans-serif;
 }
 
 /* =========================================================
@@ -153,5 +155,10 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-quicksand), sans-serif;
+    font-weight: 700;
   }
 }

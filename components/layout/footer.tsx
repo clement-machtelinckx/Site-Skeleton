@@ -108,7 +108,7 @@ function ContactList({ kind, data }: { kind: "phone" | "mail" | "address"; data?
 
 export function Footer() {
     return (
-        <footer className="border-t border-white/10 bg-zinc-900 text-white">
+        <footer className="border-t border-white/10 bg-zinc-900 font-heading text-white">
             <Container>
                 <div className="grid gap-10 py-12 md:grid-cols-3">
                     {COLUMNS.map((col) => (

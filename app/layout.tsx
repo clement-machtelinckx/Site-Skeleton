@@ -2,13 +2,20 @@ import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { ParallaxBackgroundClient } from "@/components/layout/parallaxBackgroundClient";
-import { Roboto } from "next/font/google";
+import { Poppins, Quicksand } from "next/font/google";
 import type { Metadata } from "next";
 
-const roboto = Roboto({
+const poppins = Poppins({
     subsets: ["latin"],
-    weight: ["400", "500", "700"],
+    weight: ["300", "400", "500", "600", "700"],
     display: "swap",
+});
+
+const quicksand = Quicksand({
+    subsets: ["latin"],
+    weight: ["300", "400", "500", "600", "700"],
+    display: "swap",
+    variable: "--font-quicksand",
 });
 
 export const metadata: Metadata = {
@@ -48,7 +55,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="fr" className={roboto.className} suppressHydrationWarning>
+        <html lang="fr" className={`${poppins.className} ${quicksand.variable}`} suppressHydrationWarning>
             <head>
                 <script
                     type="application/ld+json"

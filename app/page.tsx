@@ -91,7 +91,7 @@ export default function HomePage() {
                             <span className="mt-2 block text-base font-medium tracking-normal md:text-lg">
                                 de la
                             </span>
-                            <span className="mt-3 block">protection des audioprothésistes</span>
+                            <span className="mt-2 block">protection des audioprothésistes</span>
                         </h1>
 
                         {/* Texte */}
@@ -116,7 +116,11 @@ export default function HomePage() {
 
                         {/* CTA */}
                         <div className="mt-10">
-                            <Button asChild size="lg" className="rounded-full rounded-tr-md font-light uppercase tracking-wider">
+                            <Button
+                                asChild
+                                size="lg"
+                                className="rounded-full rounded-tr-md font-light tracking-wider uppercase"
+                            >
                                 <Link href="/contact">Demander un devis&nbsp;&nbsp;→</Link>
                             </Button>
                         </div>
@@ -157,7 +161,10 @@ export default function HomePage() {
                             </p>
 
                             <div className="pt-2">
-                                <Button asChild className="rounded-full rounded-tr-md font-light uppercase tracking-wider">
+                                <Button
+                                    asChild
+                                    className="rounded-full rounded-tr-md font-light tracking-wider uppercase"
+                                >
                                     <Link href="/contact">Demander un devis&nbsp;&nbsp;→</Link>
                                 </Button>
                             </div>
@@ -216,7 +223,10 @@ export default function HomePage() {
                             </p>
 
                             <div className="pt-2">
-                                <Button asChild className="rounded-full rounded-tr-md font-light uppercase tracking-wider">
+                                <Button
+                                    asChild
+                                    className="rounded-full rounded-tr-md font-light tracking-wider uppercase"
+                                >
                                     <Link href="/contact">Demander un devis&nbsp;&nbsp;→</Link>
                                 </Button>
                             </div>
@@ -228,16 +238,12 @@ export default function HomePage() {
             {/* CHIFFRES CLÉS */}
             <section aria-label="Chiffres clés" className="py-16 md:py-24">
                 <Container>
-                    <h2 className="text-center text-2xl font-semibold tracking-tight md:text-3xl">
+                    <h2 className="text-center text-2xl font-bold tracking-tight md:text-3xl">
                         Nos chiffres clés
                     </h2>
 
                     <div className="mt-10 grid gap-6 text-center md:grid-cols-3">
-                        <AnimatedCounter
-                            value={600000}
-                            prefix="+ "
-                            label="Appareils assurés"
-                        />
+                        <AnimatedCounter value={600000} prefix="+ " label="Appareils assurés" />
                         <AnimatedCounter
                             value={9000}
                             prefix="+ "
