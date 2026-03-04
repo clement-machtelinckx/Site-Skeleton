@@ -69,7 +69,7 @@ export function AppelerAgenceClient() {
                     title={dialogData.label}
                     phone={dialogData.phone}
                     email={dialogData.email}
-                    imageSrc="/bebe-pigeon.jpg"
+                    imageSrc="/images/contact.png"
                 />
             ) : null}
         </>

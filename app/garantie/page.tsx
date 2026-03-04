@@ -136,8 +136,8 @@ export default function GarantiePage() {
 
                         <div className="bg-muted relative aspect-[16/10] w-full overflow-hidden rounded-2xl border">
                             <Image
-                                src="/bebe-pigeon.jpg"
-                                alt="Appareil auditif - illustration"
+                                src="/images/assurance_appareil_audioprothese.jpg"
+                                alt="Assurance Appareil auditif - illustration"
                                 fill
                                 className="object-cover"
                                 sizes="(min-width: 768px) 50vw, 100vw"
@@ -241,7 +241,7 @@ export default function GarantiePage() {
 
                         <div className="bg-muted relative aspect-[16/10] w-full overflow-hidden rounded-2xl border">
                             <Image
-                                src="/bebe-pigeon.jpg"
+                                src="/images/protection.png"
                                 alt="Illustration protection activité"
                                 fill
                                 className="object-cover"
