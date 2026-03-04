@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
 import { Menu } from "lucide-react";
+import { NavLink } from "./navLink";
 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -56,14 +56,15 @@ export function MenuBurger() {
                 <div className="mt-6 space-y-4">
                     <nav aria-label="Menu mobile" className="grid gap-2">
                         {NAV_ITEMS.map((item) => (
-                            <Link
+                            <NavLink
                                 key={item.href}
                                 href={item.href}
                                 onClick={() => setOpen(false)}
                                 className="text-foreground hover:bg-muted focus-visible:ring-ring rounded-md px-3 py-2 text-base focus-visible:ring-2 focus-visible:outline-none"
+                                activeClassName="bg-muted text-foreground font-medium"
                             >
                                 {item.label}
-                            </Link>
+                            </NavLink>
                         ))}
                     </nav>
 

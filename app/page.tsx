@@ -61,16 +61,16 @@ export default function HomePage() {
                     ],
                 }}
             />
-            <section aria-label="Présentation" className="py-16 md:py-24">
+            <section aria-label="Présentation" className="py-16 md:py-10">
                 <Container>
-                    <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
+                    <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
                         {/* Logo */}
                         <Image
                             src="/logo-transparent.png"
                             alt="Logo de ProtecAudio"
                             width={420}
                             height={160}
-                            className="h-auto w-[220px] md:w-[320px]"
+                            className="h-auto w-[420px] md:w-[420px]"
                             priority
                         />
 

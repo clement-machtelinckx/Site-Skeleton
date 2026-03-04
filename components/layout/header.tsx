@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Container } from "./container";
 import { MenuBurger } from "./menuBurger";
+import { NavLink } from "./navLink";
 import Image from "next/image";
 
 export function Header() {
@@ -19,9 +20,9 @@ export function Header() {
                         <Image
                             src="/logo-transparent.png"
                             alt="Protec'audio Logo"
-                            width={60}
-                            height={30}
-                            className="h-auto w-auto max-w-[100px]"
+                            width={120}
+                            height={20}
+                            className="h-auto w-auto max-w-[220px]"
                             priority={false}
                         />
                     </Link>
@@ -30,36 +31,30 @@ export function Header() {
                         aria-label="Navigation principale"
                         className="hidden items-center gap-6 md:flex"
                     >
-                        <Link
+                        <NavLink
                             href="/"
-                            className="text-muted-foreground hover:text-foreground text-sm"
+                            className="text-muted-foreground hover:text-foreground text-base"
                         >
                             Accueil
-                        </Link>
-                        <Link
+                        </NavLink>
+                        <NavLink
                             href="/garantie"
-                            className="text-muted-foreground hover:text-foreground text-sm"
+                            className="text-muted-foreground hover:text-foreground text-base"
                         >
                             Garanties audioprothèses
-                        </Link>
-                        {/* <Link href="/protection" className="text-sm text-muted-foreground hover:text-foreground">
-                            Protection de votre activité
-                        </Link> */}
-                        <Link
+                        </NavLink>
+                        <NavLink
                             href="/protection"
-                            className="text-muted-foreground hover:text-foreground text-sm"
+                            className="text-muted-foreground hover:text-foreground text-base"
                         >
                             Solutions audioprothésistes
-                        </Link>
-                        {/* <Link href="/contact" className="text-sm text-muted-foreground hover:text-foreground">
-                            Contact
-                        </Link> */}
-                        <Link
+                        </NavLink>
+                        <NavLink
                             href="/join"
-                            className="text-muted-foreground hover:text-foreground text-sm"
+                            className="text-muted-foreground hover:text-foreground text-base"
                         >
                             Nous rejoindre
-                        </Link>
+                        </NavLink>
                     </nav>
 
                     <div className="flex items-center gap-2">

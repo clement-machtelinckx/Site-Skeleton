@@ -79,7 +79,7 @@ export default function Contact() {
                 </Container>
             </section>
 
-            <section>
+            <section className="py-16 md:py-24">
                 <Container>
                     <div className="grid gap-10 md:grid-cols-3">
                         <div>
