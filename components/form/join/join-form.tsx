@@ -256,8 +256,8 @@ export function JoinForm() {
                         ) : null}
 
                         <div className="flex flex-wrap items-center gap-3 md:col-span-2">
-                            <Button type="submit" size="lg" disabled={isSending}>
-                                {isSending ? "Envoi..." : "Envoyer ma candidature"}
+                            <Button type="submit" size="lg" disabled={isSending} className="rounded-full rounded-tr-md font-light uppercase tracking-wider">
+                                {isSending ? "Envoi..." : "Envoyer ma candidature\u00a0\u00a0→"}
                             </Button>
 
                             <Button

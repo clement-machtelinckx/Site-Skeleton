@@ -11,6 +11,7 @@ import {
 import Image from "next/image";
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/json-ld";
+import { AnimatedCounter } from "@/components/special/AnimatedCounter";
 
 export const metadata: Metadata = {
     title: "Accueil",
@@ -115,8 +116,8 @@ export default function HomePage() {
 
                         {/* CTA */}
                         <div className="mt-10">
-                            <Button asChild size="lg">
-                                <Link href="/contact">Demander un devis</Link>
+                            <Button asChild size="lg" className="rounded-full rounded-tr-md font-light uppercase tracking-wider">
+                                <Link href="/contact">Demander un devis&nbsp;&nbsp;→</Link>
                             </Button>
                         </div>
                     </div>
@@ -156,8 +157,8 @@ export default function HomePage() {
                             </p>
 
                             <div className="pt-2">
-                                <Button asChild>
-                                    <Link href="/contact">Demander un devis</Link>
+                                <Button asChild className="rounded-full rounded-tr-md font-light uppercase tracking-wider">
+                                    <Link href="/contact">Demander un devis&nbsp;&nbsp;→</Link>
                                 </Button>
                             </div>
                         </div>
@@ -215,8 +216,8 @@ export default function HomePage() {
                             </p>
 
                             <div className="pt-2">
-                                <Button asChild>
-                                    <Link href="/contact">Demander un devis</Link>
+                                <Button asChild className="rounded-full rounded-tr-md font-light uppercase tracking-wider">
+                                    <Link href="/contact">Demander un devis&nbsp;&nbsp;→</Link>
                                 </Button>
                             </div>
                         </div>
@@ -232,23 +233,24 @@ export default function HomePage() {
                     </h2>
 
                     <div className="mt-10 grid gap-6 text-center md:grid-cols-3">
-                        <div className="p-8">
-                            <p className="text-lg font-semibold md:text-xl">
-                                + 600 000 Appareils Assurés
-                            </p>
-                        </div>
-
-                        <div className="p-8">
-                            <p className="text-lg font-semibold md:text-xl">
-                                + 9 000 sinistres pris en charge / an
-                            </p>
-                        </div>
-
-                        <div className="p-8">
-                            <p className="text-lg font-semibold md:text-xl">
-                                + 3 000 centres auditifs partenaires
-                            </p>
-                        </div>
+                        <AnimatedCounter
+                            value={600000}
+                            prefix="+ "
+                            label="Appareils assurés"
+                        />
+                        <AnimatedCounter
+                            value={9000}
+                            prefix="+ "
+                            suffix=" / an"
+                            label="Sinistres pris en charge"
+                            duration={1500}
+                        />
+                        <AnimatedCounter
+                            value={3000}
+                            prefix="+ "
+                            label="Centres auditifs partenaires"
+                            duration={1800}
+                        />
                     </div>
                 </Container>
             </section>

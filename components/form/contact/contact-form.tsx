@@ -417,8 +417,8 @@ export function ContactForm() {
                 ) : null}
 
                 <div className="flex flex-wrap items-center gap-3">
-                    <Button type="submit" size="lg" disabled={isSending}>
-                        {isSending ? "Envoi..." : "Envoyer"}
+                    <Button type="submit" size="lg" disabled={isSending} className="rounded-full rounded-tr-md font-light uppercase tracking-wider">
+                        {isSending ? "Envoi..." : "Envoyer\u00a0\u00a0→"}
                     </Button>
                     <Button
                         type="button"

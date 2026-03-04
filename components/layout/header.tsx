@@ -59,8 +59,8 @@ export function Header() {
 
                     <div className="flex items-center gap-2">
                         {/* Desktop CTA */}
-                        <Button asChild className="hidden md:inline-flex">
-                            <Link href="/contact">Contact</Link>
+                        <Button asChild className="hidden rounded-full rounded-tr-md font-light uppercase tracking-wider md:inline-flex">
+                            <Link href="/contact">Contact&nbsp;&nbsp;→</Link>
                         </Button>
 
                         {/* Mobile burger */}
