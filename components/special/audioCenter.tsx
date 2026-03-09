@@ -36,11 +36,6 @@ function IconBadge({ Icon }: { Icon: Item["Icon"] }) {
 export function AudioCentersBlock() {
     return (
         <section className="relative overflow-hidden py-10 md:py-14">
-            {/* “Bulles” décoratives à droite */}
-            {/* <div className="pointer-events-none absolute right-[-120px] top-[-80px] h-[260px] w-[260px] rounded-full bg-indigo-100/55" />
-            <div className="pointer-events-none absolute right-[60px] top-[-60px] h-[220px] w-[220px] rounded-full bg-indigo-100/45" />
-            <div className="pointer-events-none absolute right-[220px] top-[-20px] h-[180px] w-[180px] rounded-full bg-indigo-100/35" /> */}
-
             <div className="mx-auto w-full max-w-6xl px-4">
                 {/* Titre */}
                 <h2 className="text-center text-4xl font-extrabold tracking-tight text-slate-700 md:text-6xl">

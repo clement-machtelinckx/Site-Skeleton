@@ -75,16 +75,6 @@ export default function HomePage() {
                             priority
                         />
 
-                        {/* Sous-titre / distributeurs */}
-                        {/* <p className="mt-4 text-sm text-muted-foreground">
-              Distribué par <span className="font-semibold text-foreground">Eurossur</span>,{" "}
-              <span className="font-semibold text-foreground">Mark’assur</span> &{" "}
-              <span className="font-semibold text-foreground">Rossard</span>
-            </p> */}
-
-                        {/* Séparateur */}
-                        {/* <div className="mt-6 h-px w-56 bg-foreground/30" /> */}
-
                         {/* Titre */}
                         <h1 className="mt-10 text-4xl font-semibold tracking-tight md:text-6xl">
                             <span className="block">Experts</span>
