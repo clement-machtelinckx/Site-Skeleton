@@ -51,6 +51,12 @@ export function Header() {
                         >
                             Contact
                         </Link>
+                        <Link
+                            href="/example"
+                            className="text-muted-foreground hover:text-foreground text-base transition-colors"
+                        >
+                            Example
+                        </Link>
                     </nav>
 
                     <div className="flex items-center gap-2">

@@ -29,16 +29,17 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 import {
     contactFormSchema,
-    insuranceLabel,
+    requestLabel,
     type ContactFormValues,
     USER_TYPES,
 } from "./contact-schema";
 
 const JOB_FUNCTIONS = [
-    "Gérant / Dirigeant",
-    "Audioprothésiste",
-    "Assistant(e)",
+    "Dirigeant / Gérant",
+    "Responsable",
+    "Commercial",
     "Administratif",
+    "Indépendant",
     "Autre",
 ] as const;
 
@@ -60,9 +61,9 @@ export function ContactForm() {
             companyAddress: "",
             postalCode: "",
             city: "",
-            insuranceType: "garantie_audioprothese",
+            requestType: "contact",
             message: "",
-            website: "", // honeypot
+            website: "",
         },
         mode: "onBlur",
     });
@@ -126,7 +127,6 @@ export function ContactForm() {
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                {/* Vous êtes */}
                 <Card className="rounded-2xl">
                     <CardHeader>
                         <CardTitle>Vous êtes</CardTitle>
@@ -165,7 +165,6 @@ export function ContactForm() {
                     </CardContent>
                 </Card>
 
-                {/* Identité */}
                 <Card className="rounded-2xl">
                     <CardHeader>
                         <CardTitle>Identité de l’interlocuteur</CardTitle>
@@ -184,9 +183,9 @@ export function ContactForm() {
                                             </SelectTrigger>
                                         </FormControl>
                                         <SelectContent>
-                                            {JOB_FUNCTIONS.map((v) => (
-                                                <SelectItem key={v} value={v}>
-                                                    {v}
+                                            {JOB_FUNCTIONS.map((value) => (
+                                                <SelectItem key={value} value={value}>
+                                                    {value}
                                                 </SelectItem>
                                             ))}
                                         </SelectContent>
@@ -272,7 +271,6 @@ export function ContactForm() {
                     </CardContent>
                 </Card>
 
-                {/* Entreprise */}
                 <Card className="rounded-2xl">
                     <CardHeader>
                         <CardTitle>Votre entreprise</CardTitle>
@@ -301,7 +299,8 @@ export function ContactForm() {
                             render={({ field }) => (
                                 <FormItem className="md:col-span-2">
                                     <FormLabel>
-                                        Adresse {userType === "professionnel" ? "*" : "(optionnel)"}
+                                        Adresse{" "}
+                                        {userType === "professionnel" ? "*" : "(optionnel)"}
                                     </FormLabel>
                                     <FormControl>
                                         <Input placeholder="Adresse de l’entreprise" {...field} />
@@ -346,7 +345,6 @@ export function ContactForm() {
                     </CardContent>
                 </Card>
 
-                {/* Besoin */}
                 <Card className="rounded-2xl">
                     <CardHeader>
                         <CardTitle>Votre besoin</CardTitle>
@@ -354,10 +352,10 @@ export function ContactForm() {
                     <CardContent className="grid gap-6">
                         <FormField
                             control={form.control}
-                            name="insuranceType"
+                            name="requestType"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Type d’assurance *</FormLabel>
+                                    <FormLabel>Type de demande *</FormLabel>
                                     <Select value={field.value} onValueChange={field.onChange}>
                                         <FormControl>
                                             <SelectTrigger>
@@ -365,18 +363,17 @@ export function ContactForm() {
                                             </SelectTrigger>
                                         </FormControl>
                                         <SelectContent>
-                                            {Object.entries(insuranceLabel).map(
-                                                ([value, label]) => (
-                                                    <SelectItem key={value} value={value}>
-                                                        {label}
-                                                    </SelectItem>
-                                                ),
-                                            )}
+                                            {Object.entries(requestLabel).map(([value, label]) => (
+                                                <SelectItem key={value} value={value}>
+                                                    {label}
+                                                </SelectItem>
+                                            ))}
                                         </SelectContent>
                                     </Select>
                                     <FormDescription>
-                                        Selon le type d’assurance, votre demande sera envoyée au bon
-                                        interlocuteur.
+                                        Ce champ permet de catégoriser la demande et pourra servir
+                                        plus tard à router les messages vers différents
+                                        interlocuteurs.
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
@@ -403,7 +400,6 @@ export function ContactForm() {
                     </CardContent>
                 </Card>
 
-                {/* Honeypot anti-bot (ne pas afficher) */}
                 <input
                     type="text"
                     tabIndex={-1}
@@ -417,9 +413,15 @@ export function ContactForm() {
                 ) : null}
 
                 <div className="flex flex-wrap items-center gap-3">
-                    <Button type="submit" size="lg" disabled={isSending} className="rounded-full rounded-tr-md font-light uppercase tracking-wider">
+                    <Button
+                        type="submit"
+                        size="lg"
+                        disabled={isSending}
+                        className="rounded-full rounded-tr-md font-light tracking-wider uppercase"
+                    >
                         {isSending ? "Envoi..." : "Envoyer\u00a0\u00a0→"}
                     </Button>
+
                     <Button
                         type="button"
                         variant="secondary"
@@ -432,6 +434,14 @@ export function ContactForm() {
                         Réinitialiser
                     </Button>
                 </div>
+
+                {/*
+                  Ancien usage métier :
+                  le formulaire proposait des types d’assurance très spécifiques
+                  et indiquait que la demande serait routée automatiquement.
+                  Pour le skeleton, on conserve l’idée mais avec des catégories
+                  génériques plus faciles à réutiliser sur différents projets.
+                */}
             </form>
         </Form>
     );

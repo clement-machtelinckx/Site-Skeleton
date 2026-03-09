@@ -5,25 +5,26 @@ import { rateLimit } from "@/lib/rate-limit";
 import { CONTACTS, type ContactKey } from "@/config/contact";
 import {
     contactFormSchema,
-    insuranceLabel,
-    type InsuranceType,
+    requestLabel,
+    type RequestType,
 } from "@/components/form/contact/contact-schema";
 import { buildContactEmail } from "@/lib/email-templates/contact";
+import { siteConfig } from "@/config/site";
 
 export const runtime = "nodejs";
 
-const INSURANCE_EMAIL: Record<InsuranceType, ContactKey> = {
-    garantie_audioprothese: "protecaudio",
-    rc_pro: "rossard",
-    multirisque_pro: "rossard",
-    protection_juridique: "rossard",
-    sante_prevoyance: "rossard",
-    epargne_retraite: "rossard",
+const REQUEST_EMAIL: Record<RequestType, ContactKey> = {
+    contact: "default",
+    devis: "sales",
+    support: "support",
+    partenariat: "partnership",
+    autre: "default",
 };
 
 export async function POST(req: Request) {
     try {
         const { ok: allowed } = rateLimit(req, { limit: 5, windowMs: 60_000 });
+
         if (!allowed) {
             return NextResponse.json(
                 { ok: false, error: "Trop de requêtes. Réessayez dans une minute." },
@@ -47,12 +48,12 @@ export async function POST(req: Request) {
             return NextResponse.json({ ok: true, routedTo: "default" });
         }
 
-        const contactKey = INSURANCE_EMAIL[values.insuranceType];
+        const contactKey = REQUEST_EMAIL[values.requestType];
         const toEmail = CONTACTS[contactKey].email;
 
         const mail = buildContactEmail(
             {
-                insuranceLabel: insuranceLabel[values.insuranceType],
+                insuranceLabel: requestLabel[values.requestType],
                 userType: values.userType,
                 jobFunction: values.jobFunction,
                 firstName: values.firstName,
@@ -66,7 +67,7 @@ export async function POST(req: Request) {
                 message: values.message,
             },
             {
-                brandName: "ProtecAudio",
+                brandName: siteConfig.name,
                 logoUrl: process.env.MAIL_LOGO_URL,
                 footerText: process.env.MAIL_FOOTER_TEXT,
             },
@@ -94,9 +95,27 @@ export async function POST(req: Request) {
         });
     } catch (err) {
         console.error("POST /api/contact error:", err);
+
         return NextResponse.json(
             { ok: false, error: "Erreur serveur lors de l’envoi." },
             { status: 500 },
         );
     }
 }
+
+/*
+ Ancien usage métier conservé dans l’idée :
+ le routage se faisait selon des types d’assurance très spécifiques
+ vers plusieurs boîtes dédiées.
+
+ Pour le skeleton, on garde exactement le même principe,
+ mais avec des catégories plus génériques :
+ - contact
+ - devis
+ - support
+ - partenariat
+ - autre
+
+ Si un futur projet nécessite un routage plus spécifique,
+ il suffira d’adapter REQUEST_EMAIL et les options du schéma.
+*/

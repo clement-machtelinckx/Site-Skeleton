@@ -42,7 +42,6 @@ export function JoinForm() {
         setIsSending(true);
 
         try {
-            // honeypot: si rempli => bot => ok silencieux
             if (values.website && values.website.trim().length > 0) {
                 setSubmitted(true);
                 return;
@@ -54,7 +53,7 @@ export function JoinForm() {
             fd.append("email", values.email);
             fd.append("phone", values.phone);
             fd.append("website", values.website ?? "");
-            fd.append("cv", values.cv); // File
+            fd.append("cv", values.cv);
 
             const res = await fetch("/api/join", {
                 method: "POST",
@@ -111,6 +110,10 @@ export function JoinForm() {
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                 <Card className="rounded-2xl">
+                    <CardHeader>
+                        <CardTitle>Déposer une candidature</CardTitle>
+                    </CardHeader>
+
                     <CardContent className="grid gap-6 md:grid-cols-2">
                         <FormField
                             control={form.control}
@@ -186,7 +189,6 @@ export function JoinForm() {
                             )}
                         />
 
-                        {/* Upload CV */}
                         <FormField
                             control={form.control}
                             name="cv"
@@ -195,18 +197,16 @@ export function JoinForm() {
                                     <FormLabel>Déposez votre CV *</FormLabel>
 
                                     <div className="flex items-stretch gap-2">
-                                        {/* Champ lecture seule (nom du fichier) */}
                                         <Input
                                             readOnly
                                             value={
                                                 cvFile
                                                     ? cvFile.name
-                                                    : "Sélectionnez votre plus beau CV"
+                                                    : "Sélectionnez votre fichier"
                                             }
                                             className="cursor-default"
                                         />
 
-                                        {/* input file caché + bouton */}
                                         <div className="relative">
                                             <input
                                                 type="file"
@@ -240,7 +240,6 @@ export function JoinForm() {
                             )}
                         />
 
-                        {/* Honeypot anti-bot */}
                         <input
                             type="text"
                             tabIndex={-1}
@@ -256,7 +255,12 @@ export function JoinForm() {
                         ) : null}
 
                         <div className="flex flex-wrap items-center gap-3 md:col-span-2">
-                            <Button type="submit" size="lg" disabled={isSending} className="rounded-full rounded-tr-md font-light uppercase tracking-wider">
+                            <Button
+                                type="submit"
+                                size="lg"
+                                disabled={isSending}
+                                className="rounded-full rounded-tr-md font-light tracking-wider uppercase"
+                            >
                                 {isSending ? "Envoi..." : "Envoyer ma candidature\u00a0\u00a0→"}
                             </Button>
 
@@ -274,6 +278,12 @@ export function JoinForm() {
                         </div>
                     </CardContent>
                 </Card>
+
+                {/*
+                  Ce formulaire reste volontairement générique dans le skeleton.
+                  Il peut servir pour une page recrutement, une candidature spontanée
+                  ou toute collecte de CV sur un futur projet.
+                */}
             </form>
         </Form>
     );

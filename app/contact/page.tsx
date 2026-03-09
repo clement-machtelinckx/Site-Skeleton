@@ -4,42 +4,52 @@ import { Reveal } from "@/components/ui/reveal";
 import type { Metadata } from "next";
 import { Phone, Headphones, Mail } from "lucide-react";
 import { JsonLd } from "@/components/seo/json-ld";
+import { siteConfig } from "@/config/site";
+import { CONTACTS } from "@/config/contact";
 
 export const metadata: Metadata = {
     title: "Contact",
     description:
-        "Contactez-nous pour obtenir des informations sur nos solutions d'assurance, réaliser un contrat ou déclarer un sinistre.",
+        "Contactez-nous pour obtenir des informations, échanger sur votre projet ou faire une demande via notre formulaire.",
     openGraph: {
-        title: "Contactez ProtecAudio",
+        title: `Contact | ${siteConfig.name}`,
         description:
-            "Contactez-nous pour un devis, des informations ou une déclaration de sinistre.",
+            "Prenez contact avec nous par téléphone, formulaire ou email selon votre besoin.",
     },
 };
 
 export default function Contact() {
+    const defaultContact = CONTACTS.default;
+
     return (
         <>
             <JsonLd
                 data={{
                     "@context": "https://schema.org",
                     "@type": "ContactPage",
-                    name: "Contact ProtecAudio",
-                    url: "https://protecaudio.fr/contact",
+                    name: `Contact ${siteConfig.name}`,
+                    url: `${siteConfig.url}/contact`,
                     description:
-                        "Contactez ProtecAudio pour obtenir des informations sur nos solutions d'assurance pour audioprothésistes.",
+                        "Page de contact générique pour joindre l’équipe par téléphone, formulaire ou email.",
                     mainEntity: {
                         "@type": "Organization",
-                        name: "ProtecAudio",
-                        telephone: "+33980085047",
-                        email: "protecaudio@markassur.com",
+                        name: siteConfig.name,
+                        telephone: "+33123456789",
+                        email: defaultContact.email,
                         contactPoint: {
                             "@type": "ContactPoint",
-                            telephone: "+33980085047",
+                            telephone: "+33123456789",
                             contactType: "customer service",
                             availableLanguage: "French",
                             hoursAvailable: {
                                 "@type": "OpeningHoursSpecification",
-                                dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                                dayOfWeek: [
+                                    "Monday",
+                                    "Tuesday",
+                                    "Wednesday",
+                                    "Thursday",
+                                    "Friday",
+                                ],
                                 opens: "09:00",
                                 closes: "18:00",
                             },
@@ -47,6 +57,7 @@ export default function Contact() {
                     },
                 }}
             />
+
             <JsonLd
                 data={{
                     "@context": "https://schema.org",
@@ -56,26 +67,26 @@ export default function Contact() {
                             "@type": "ListItem",
                             position: 1,
                             name: "Accueil",
-                            item: "https://protecaudio.fr",
+                            item: siteConfig.url,
                         },
                         {
                             "@type": "ListItem",
                             position: 2,
                             name: "Contact",
-                            item: "https://protecaudio.fr/contact",
+                            item: `${siteConfig.url}/contact`,
                         },
                     ],
                 }}
             />
+
             <section className="py-16 md:py-24">
                 <Container>
                     <h1 className="text-primary text-center text-5xl font-semibold">
-                        Echanger avec Protec&apos;audio
+                        Nous contacter
                     </h1>
-                    <h2 className="text-muted-foreground text-center text-lg font-medium">
-                        Pour obtenir des informations sur nos solutions, réaliser un contrat,
-                        déclarer un sinistre
-                    </h2>
+                    <p className="text-muted-foreground mx-auto mt-4 max-w-2xl text-center text-lg font-medium">
+                        Échangez avec nous par téléphone, via le formulaire de contact ou par email.
+                    </p>
                 </Container>
             </section>
 
@@ -85,8 +96,8 @@ export default function Contact() {
                         <div>
                             <Reveal delay={10}>
                                 <ContactCard
-                                    title="CONTACTER NOTRE CABINET"
-                                    href="/appeler-agence"
+                                    title="NOUS APPELER"
+                                    href="/contact/form"
                                     buttonLabel="Appeler"
                                     icon={Phone}
                                     className="whitespace-pre-line"
@@ -97,7 +108,7 @@ export default function Contact() {
                         <div>
                             <Reveal delay={80}>
                                 <ContactCard
-                                    title="ETRE RAPPELÉ"
+                                    title="ÊTRE RAPPELÉ"
                                     href="/contact/form"
                                     buttonLabel="Être rappelé"
                                     icon={Headphones}
@@ -116,6 +127,13 @@ export default function Contact() {
                             </Reveal>
                         </div>
                     </div>
+
+                    {/*
+                      Ancien usage métier conservé dans l’idée :
+                      la page pouvait pointer vers une page dédiée type /appeler-agence.
+                      Pour le skeleton, on redirige tout vers /contact/form pour garder
+                      un parcours simple et générique.
+                    */}
                 </Container>
             </section>
         </>

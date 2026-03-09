@@ -5,10 +5,11 @@ import { getTransport } from "@/lib/mailer";
 import { rateLimit } from "@/lib/rate-limit";
 import { CONTACTS } from "@/config/contact";
 import { buildJoinEmail } from "@/lib/email-templates/join";
+import { siteConfig } from "@/config/site";
 
 export const runtime = "nodejs";
 
-const MAX_CV_BYTES = 5 * 1024 * 1024; // 5MB
+const MAX_CV_BYTES = 5 * 1024 * 1024;
 
 const AllowedMime = [
     "application/pdf",
@@ -44,6 +45,7 @@ function sanitizeFilename(name: string): string {
 export async function POST(req: Request) {
     try {
         const { ok: allowed } = rateLimit(req, { limit: 3, windowMs: 60_000 });
+
         if (!allowed) {
             return NextResponse.json(
                 { ok: false, error: "Trop de requêtes. Réessayez dans une minute." },
@@ -62,6 +64,7 @@ export async function POST(req: Request) {
         };
 
         const parsed = JoinSchema.safeParse(raw);
+
         if (!parsed.success) {
             return NextResponse.json(
                 { ok: false, error: "Champs invalides.", details: parsed.error.flatten() },
@@ -87,6 +90,7 @@ export async function POST(req: Request) {
 
         const ext = extFromName(cv.name);
         const allowedExt = ["pdf", "doc", "docx"];
+
         if (!allowedExt.includes(ext)) {
             return NextResponse.json(
                 { ok: false, error: "Format invalide (PDF, DOC, DOCX)." },
@@ -95,7 +99,6 @@ export async function POST(req: Request) {
         }
 
         if (!AllowedMime.includes(cv.type as (typeof AllowedMime)[number])) {
-            // tolérance: certains navigateurs peuvent envoyer un type vide
             if (cv.type && cv.type.trim().length > 0) {
                 return NextResponse.json(
                     { ok: false, error: "Type de fichier invalide." },
@@ -104,10 +107,11 @@ export async function POST(req: Request) {
             }
         }
 
-        const toEmail = CONTACTS.recrutement.email;
+        const toEmail = CONTACTS.recruitment.email;
 
         const safeName = sanitizeFilename(cv.name);
         const cvBytes = Buffer.from(await cv.arrayBuffer());
+
         const cvMeta = {
             filename: safeName,
             sizeKb: Math.round(cv.size / 1024),
@@ -123,7 +127,7 @@ export async function POST(req: Request) {
             },
             cvMeta,
             {
-                brandName: "ProtecAudio",
+                brandName: siteConfig.name,
                 logoUrl: process.env.MAIL_LOGO_URL,
                 footerText: process.env.MAIL_FOOTER_TEXT,
             },
@@ -158,9 +162,21 @@ export async function POST(req: Request) {
         });
     } catch (err) {
         console.error("POST /api/join error:", err);
+
         return NextResponse.json(
             { ok: false, error: "Erreur serveur lors de l’envoi." },
             { status: 500 },
         );
     }
 }
+
+/*
+ Cette route reste volontairement générique dans le skeleton.
+ Elle permet de conserver un vrai workflow de candidature avec upload de CV.
+
+ Si un futur site n’a pas besoin de recrutement :
+ - il suffit de ne pas exposer la page /join
+ - ou de retirer le lien correspondant
+
+ La mécanique reste disponible sans devoir la recréer plus tard.
+*/

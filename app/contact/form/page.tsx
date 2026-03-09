@@ -5,19 +5,20 @@ import { Container } from "@/components/layout/container";
 import { InfoCard } from "@/components/special/infoCard";
 import { ContactForm } from "@/components/form/contact/contact-form";
 import { CONTACTS } from "@/config/contact";
+import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
     title: "Formulaire de contact",
     description:
-        "Contactez-nous pour obtenir des informations sur nos solutions d'assurance, réaliser un contrat ou déclarer un sinistre.",
+        "Remplissez le formulaire pour nous contacter, demander des informations ou échanger sur votre projet.",
     openGraph: {
-        title: "Formulaire de contact ProtecAudio",
+        title: `Formulaire de contact | ${siteConfig.name}`,
         description:
-            "Remplissez notre formulaire pour obtenir un devis ou des informations sur nos solutions d'assurance.",
+            "Utilisez notre formulaire pour nous envoyer un message ou demander à être recontacté.",
     },
 };
 
-const c = CONTACTS.protecaudio;
+const c = CONTACTS.default;
 
 export default function ContactFormPage() {
     return (
@@ -33,26 +34,31 @@ export default function ContactFormPage() {
                 </div>
 
                 <div className="grid gap-8 lg:grid-cols-3 lg:items-start">
-                    {/* gauche: 1 col */}
                     <div className="lg:col-span-1">
                         <InfoCard
                             logoSrc="/logo-transparent.png"
-                            logoAlt="Protec'audio"
-                            title="Nous contacter"
+                            logoAlt={siteConfig.name}
+                            title="Informations de contact"
                             phone={c.phone}
                             hours={c.hours}
                             email={c.email}
-                            description="Vous bénéficierez d’un échange avec un de nos experts pour obtenir la meilleure couverture assurantielle."
+                            description="Utilisez ce bloc comme carte de contact générique. Vous pouvez facilement adapter les textes, le logo et les coordonnées selon le projet."
                             phoneIcon={Phone}
                             emailIcon={Mail}
                         />
                     </div>
 
-                    {/* droite: 2 cols */}
                     <div className="lg:col-span-2">
                         <ContactForm />
                     </div>
                 </div>
+
+                {/*
+                  Ancien usage :
+                  cette page utilisait CONTACTS.protecaudio avec un wording métier.
+                  Pour le skeleton, on branche la page sur CONTACTS.default afin de
+                  garder un comportement neutre et facilement remplaçable.
+                */}
             </Container>
         </main>
     );

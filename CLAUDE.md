@@ -4,7 +4,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-ProtecAudio — insurance and protection solutions website for audioprothesists (hearing aid professionals). French-language, public-facing site built with Next.js App Router.
+Site Skeleton — reusable starter for French-language showcase websites built with Next.js App Router.
+
+This repository is intended to serve as a clean, clonable base for quickly launching new websites with a shared architecture, reusable components, generic forms, and email workflows.
+
 
 ## Commands
 
